@@ -13,9 +13,9 @@ import java.util.List;
 
 public class UserDetailsImpl implements UserDetails{
 
-    private String username;
-    private String password;
-    private Collection<? extends GrantedAuthority> authorities;
+    private final String username;
+    private final String password;
+    private final Collection<? extends GrantedAuthority> authorities;
 
 
     public UserDetailsImpl( User user ){

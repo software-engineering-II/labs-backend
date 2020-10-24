@@ -34,7 +34,7 @@ public class CourseController{
         this.userService = userService;
     }
 
-    @PostMapping( value = {"/profesor/cursos"} )
+    @PostMapping( value = {"/profesor/crear-curso"} )
     public ResponseEntity<Void> createCourse( @RequestBody CoursePOJO coursePojo ){
         Course course = courseService.mapperCourseEntity( coursePojo );
         if( !courseService.isRightCourse( course ) ){
@@ -44,7 +44,7 @@ public class CourseController{
         return new ResponseEntity<>( HttpStatus.CREATED );
     }
 
-    @GetMapping(value = {"/misCursos"})
+    @GetMapping(value = {"/mis-cursos"})
     public List<EnrolledCoursePOJO> getCoursesByUser(){
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.findByUsername(username);

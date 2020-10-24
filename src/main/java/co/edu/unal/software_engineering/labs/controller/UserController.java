@@ -1,9 +1,13 @@
 package co.edu.unal.software_engineering.labs.controller;
 
+import co.edu.unal.software_engineering.labs.model.Association;
 import co.edu.unal.software_engineering.labs.model.Role;
 import co.edu.unal.software_engineering.labs.model.User;
+import co.edu.unal.software_engineering.labs.pojo.EnrolledCoursePOJO;
 import co.edu.unal.software_engineering.labs.pojo.LoginUserPOJO;
 import co.edu.unal.software_engineering.labs.pojo.RegisterUserPOJO;
+import co.edu.unal.software_engineering.labs.pojo.RolePOJO;
+import co.edu.unal.software_engineering.labs.service.AssociationService;
 import co.edu.unal.software_engineering.labs.service.RoleService;
 import co.edu.unal.software_engineering.labs.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -13,7 +17,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 
 @RestController
@@ -24,11 +30,14 @@ public class UserController{
     private RoleService roleService;
 
     private PasswordEncoder passwordEncoder;
+    
+    private final AssociationService associationService;
 
-    public UserController( UserService userService, RoleService roleService, PasswordEncoder passwordEncoder ){
+    public UserController( UserService userService, RoleService roleService, PasswordEncoder passwordEncoder, AssociationService associationService ){
         this.userService = userService;
         this.roleService = roleService;
         this.passwordEncoder = passwordEncoder;
+        this.associationService = associationService;
     }
 
     @PostMapping( value = { "/registro/nuevo-usuario/rol/{roleId}" } )
@@ -61,6 +70,16 @@ public class UserController{
         existingUser.addRole( role );
         userService.save( existingUser );
         return new ResponseEntity<>( HttpStatus.CREATED );
+    }
+    
+    @GetMapping( value = { "/obtener-rol" })
+    public Role obtenerRolUsuario( ){
+        String username = SecurityContextHolder.getContext( ).getAuthentication( ).getName( );
+        User user = userService.findByUsername( username );
+        List<Association> associations = associationService.findByUser(user);
+        Role rolUsuario = associations.get(0).getRole();
+       
+        return rolUsuario;
     }
 
 }

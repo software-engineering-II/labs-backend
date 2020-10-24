@@ -53,3 +53,4 @@ INSERT INTO "labs"."public"."association" (association_id, user_id, role_id, cou
     VALUES (5, 4, 1, 2, 1);
 INSERT INTO "labs"."public"."association" (association_id, user_id, role_id, course_id, period_id)
     VALUES (6, 3, 1, 2, 1);
+ALTER SEQUENCE association_association_id_seq RESTART WITH 7;

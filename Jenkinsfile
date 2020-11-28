@@ -1,5 +1,10 @@
 pipeline{
     agent any
+
+    environment {
+        PORT = '8585'
+    }
+
     stages{
         stage( 'clean' ){
             steps{

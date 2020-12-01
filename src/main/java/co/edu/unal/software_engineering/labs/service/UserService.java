@@ -20,8 +20,8 @@ public class UserService{
         return userRepository.findByUsername( username );
     }
 
-    public void save( User user ){
-        userRepository.save( user );
+    public User save( User user ){
+        return userRepository.save( user );
     }
 
     public boolean isRightUser( RegisterUserPOJO user ){

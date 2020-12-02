@@ -7,6 +7,7 @@ pipeline{
 
     stages{
         stage( 'Initialize' ){
+            steps { initialize() }
             }
         stage( 'clean' ){
             steps{

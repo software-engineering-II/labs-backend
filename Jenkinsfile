@@ -23,7 +23,7 @@ pipeline{
         }
         stage( 'Initialize' ){
             steps{
-                initialize()
+                echo 'Initializing....'
             }
             post{
                 always{

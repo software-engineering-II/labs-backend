@@ -21,5 +21,10 @@ pipeline{
                 sh "mvn package"
             }
         }
+        stage( 'Initialize' ){
+            steps{
+                initialize()
+            }
+        }
     }
 }

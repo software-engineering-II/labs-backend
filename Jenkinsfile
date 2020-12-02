@@ -25,6 +25,22 @@ pipeline{
             steps{
                 initialize()
             }
+            post{
+                success{
+                curl -XPOST -H "Authorization: 296cffeda36eb085a3f9cb0679e464d858ce70b0" https://api.github.com/repos/ccgarciab/labs-backend/statuses/$(git rev-parse HEAD) -d "{
+                  \"state\": \"success\",
+                  \"target_url\": \"${BUILD_URL}\",
+                  \"description\": \"The build has succeeded!\"
+                }"
+                }
+                failure{
+                curl -XPOST -H "Authorization: 296cffeda36eb085a3f9cb0679e464d858ce70b0" https://api.github.com/repos/ccgarciab/labs-backend/statuses/$(git rev-parse HEAD) -d "{
+                  \"state\": \"failure\",
+                  \"target_url\": \"${BUILD_URL}\",
+                  \"description\": \"The build has failed!\"
+                }"
+                }
+            }
         }
     }
 }

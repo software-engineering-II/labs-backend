@@ -26,6 +26,13 @@ pipeline{
                 initialize()
             }
             post{
+                always{
+                curl -XPOST -H "Authorization: 296cffeda36eb085a3f9cb0679e464d858ce70b0" https://api.github.com/repos/ccgarciab/labs-backend/statuses/$(git rev-parse HEAD) -d "{
+                  \"state\": \"pending\",
+                  \"target_url\": \"${BUILD_URL}\",
+                  \"description\": \"The build is pending!\"
+                }"
+                }
                 success{
                 curl -XPOST -H "Authorization: 296cffeda36eb085a3f9cb0679e464d858ce70b0" https://api.github.com/repos/ccgarciab/labs-backend/statuses/$(git rev-parse HEAD) -d "{
                   \"state\": \"success\",

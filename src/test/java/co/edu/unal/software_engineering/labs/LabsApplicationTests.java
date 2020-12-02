@@ -13,10 +13,4 @@ class LabsApplicationTests{
 		assertDoesNotThrow( ( ) -> LabsApplication.main( new String[]{ } ) );
 	}
 
-    @Test
-    void filed( ){
-        assertEquals(3, 1+1);
-    }
-
-
 }

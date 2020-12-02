@@ -6,9 +6,6 @@ pipeline{
     }
 
     stages{
-        stage( 'Initialize' ){
-            steps { initialize() }
-            }
         stage( 'clean' ){
             steps{
                 sh "mvn clean"

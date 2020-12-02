@@ -7,13 +7,10 @@ pipeline{
 
     stages{
         stage( 'initialize' ){
-            steps{
-                curl -XPOST -H "Authorization: 296cffeda36eb085a3f9cb0679e464d858ce70b0" https://api.github.com/repos/ccgarciab/labs-backend/statuses/$(git rev-parse HEAD) -d "{
-                  \"state\": \"pending\",
-                  \"target_url\": \"${BUILD_URL}\",
-                  \"description\": \"The build is pending!\"
-                }"
-                }
+            curl "https://api.GitHub.com/repos/ccgarciab/labs-backend/statuses/$GIT_COMMIT?access_token=296cffeda36eb085a3f9cb0679e464d858ce70b0" \
+              -H "Content-Type: application/json" \
+              -X POST \
+              -d "{\"state\": \"pending\",\"context\": \"continuous-integration/jenkins\", \"description\": \"Jenkins\", \"target_url\": \"http://seii.eastus.cloudapp.azure.com/job/Lab4 backend grupo 5/$BUILD_NUMBER/console\"}"
             }
         stage( 'clean' ){
             steps{
@@ -33,18 +30,16 @@ pipeline{
     }
     post{
         success{
-        curl -XPOST -H "Authorization: 296cffeda36eb085a3f9cb0679e464d858ce70b0" https://api.github.com/repos/ccgarciab/labs-backend/statuses/$(git rev-parse HEAD) -d "{
-          \"state\": \"success\",
-          \"target_url\": \"${BUILD_URL}\",
-          \"description\": \"The build has succeeded!\"
-        }"
+            curl "https://api.GitHub.com/repos/ccgarciab/labs-backend/statuses/$GIT_COMMIT?access_token=296cffeda36eb085a3f9cb0679e464d858ce70b0" \
+              -H "Content-Type: application/json" \
+              -X POST \
+              -d "{\"state\": \"success\",\"context\": \"continuous-integration/jenkins\", \"description\": \"Jenkins\", \"target_url\": \"http://seii.eastus.cloudapp.azure.com/job/Lab4 backend grupo 5/$BUILD_NUMBER/console\"}"
         }
         failure{
-        curl -XPOST -H "Authorization: 296cffeda36eb085a3f9cb0679e464d858ce70b0" https://api.github.com/repos/ccgarciab/labs-backend/statuses/$(git rev-parse HEAD) -d "{
-          \"state\": \"failure\",
-          \"target_url\": \"${BUILD_URL}\",
-          \"description\": \"The build has failed!\"
-        }"
+            curl "https://api.GitHub.com/repos/ccgarciab/labs-backend/statuses/$GIT_COMMIT?access_token=296cffeda36eb085a3f9cb0679e464d858ce70b0" \
+              -H "Content-Type: application/json" \
+              -X POST \
+              -d "{\"state\": \"failure\",\"context\": \"continuous-integration/jenkins\", \"description\": \"Jenkins\", \"target_url\": \"http://seii.eastus.cloudapp.azure.com/job/Lab4 backend grupo 5/$BUILD_NUMBER/console\"}"
         }
-    }
+        }
     }

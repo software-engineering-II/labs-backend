@@ -15,13 +15,16 @@ public class UserService{
         this.userRepository = userRepository;
     }
 
-
     public User findByUsername( String username ){
         return userRepository.findByUsername( username );
     }
 
     public User save( User user ){
         return userRepository.save( user );
+    }
+
+    public void deleteById(Integer id) {
+        this.userRepository.deleteById(id);
     }
 
     public boolean isRightUser( RegisterUserPOJO user ){

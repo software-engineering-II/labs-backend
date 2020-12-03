@@ -6,11 +6,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class LabsApplicationTests{
+class LabsApplicationTests {
 
 	@Test
-	void contextLoads( ){
-		assertDoesNotThrow( ( ) -> LabsApplication.main( new String[]{ } ) );
+	void contextLoads() {
+		assertDoesNotThrow(() -> LabsApplication.main(new String[]{}));
 	}
 
 }

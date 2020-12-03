@@ -21,6 +21,10 @@ public class RoleService{
         return roleRepository.findById( id ).orElse( null );
     }
 
+    public Role save(Role role) {
+        return this.roleRepository.save(role);
+    }
+
     public List<Role> getAll( ){
         return roleRepository.findAll( );
     }

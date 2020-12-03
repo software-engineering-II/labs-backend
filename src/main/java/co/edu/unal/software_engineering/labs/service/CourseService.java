@@ -19,8 +19,16 @@ public class CourseService{
         return courseRepository.findById( id ).orElse( null );
     }
 
+    public Course findByCourseName(String courseName) {
+        return this.courseRepository.findByCourseName(courseName).orElse(new Course());
+    }
+
     public void save( Course course ){
         courseRepository.save( course );
+    }
+
+    public void deleteById(Integer id) {
+        this.courseRepository.deleteById(id);
     }
 
     public boolean isRightCourse( Course course ){

@@ -80,7 +80,9 @@ class CourseServiceTest {
         Course foundCourse = courseService1.findById(1);
         Assertions.assertEquals(foundCourse.getCourseName(),course.getCourseName());
         Assertions.assertEquals(foundCourse.getDurationHours(),course.getDurationHours());
+
     }
+
 
 }
 

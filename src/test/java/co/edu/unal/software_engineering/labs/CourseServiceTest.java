@@ -1,5 +1,11 @@
 package co.edu.unal.software_engineering.labs;
 
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.util.Optional;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import co.edu.unal.software_engineering.labs.model.Course;
 import co.edu.unal.software_engineering.labs.pojo.CoursePOJO;
+import co.edu.unal.software_engineering.labs.repository.CourseRepository;
 import co.edu.unal.software_engineering.labs.service.CourseService;
 
 @SpringBootTest
@@ -60,6 +67,19 @@ class CourseServiceTest {
         Course course = courseService.mapperCourseEntity(coursePOJO);
         Assertions.assertEquals(coursePOJO.getCourseName(), course.getCourseName());
         Assertions.assertEquals(coursePOJO.getDurationHours(), course.getDurationHours());
+    }
+    @Test
+    void saveAndFindByIdPreservesObject(){
+        CourseRepository courseRepositoryMock = mock(CourseRepository.class);
+        CourseService courseService1 = new CourseService(courseRepositoryMock);
+        Course course = new Course();
+        course.setCourseName("Ingesoft");
+        course.setDurationHours(10);
+        courseService1.save(course);
+        when(courseRepositoryMock.findById(1)).thenReturn(Optional.of(course));
+        Course foundCourse = courseService1.findById(1);
+        Assertions.assertEquals(foundCourse.getCourseName(),course.getCourseName());
+        Assertions.assertEquals(foundCourse.getDurationHours(),course.getDurationHours());
     }
 
 }

@@ -82,6 +82,14 @@ class CourseServiceTest {
         Assertions.assertEquals(foundCourse.getDurationHours(),course.getDurationHours());
 
     }
+    @Test
+    void findByIdReturnNullWhenIdNotExist(){
+        CourseRepository courseRepositoryMock = mock(CourseRepository.class);
+        CourseService courseService1 = new CourseService(courseRepositoryMock);
+        when(courseRepositoryMock.findById(1)).thenReturn(Optional.empty());
+        Assertions.assertNull(courseService1.findById(1));
+
+    }
 
 
 }

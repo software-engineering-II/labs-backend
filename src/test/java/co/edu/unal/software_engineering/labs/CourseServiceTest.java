@@ -70,24 +70,18 @@ class CourseServiceTest {
     }
     @Test
     void saveAndFindByIdPreservesObject(){
-        CourseRepository courseRepositoryMock = mock(CourseRepository.class);
-        CourseService courseService1 = new CourseService(courseRepositoryMock);
         Course course = new Course();
         course.setCourseName("Ingesoft");
         course.setDurationHours(10);
-        courseService1.save(course);
-        when(courseRepositoryMock.findById(1)).thenReturn(Optional.of(course));
-        Course foundCourse = courseService1.findById(1);
+        courseService.save(course);
+        Course foundCourse = courseService.findById(1);
         Assertions.assertEquals(foundCourse.getCourseName(),course.getCourseName());
         Assertions.assertEquals(foundCourse.getDurationHours(),course.getDurationHours());
 
     }
     @Test
     void findByIdReturnNullWhenIdNotExist(){
-        CourseRepository courseRepositoryMock = mock(CourseRepository.class);
-        CourseService courseService1 = new CourseService(courseRepositoryMock);
-        when(courseRepositoryMock.findById(1)).thenReturn(Optional.empty());
-        Assertions.assertNull(courseService1.findById(1));
+        Assertions.assertNull(courseService.findById(9));
 
     }
 
